@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.raion_kel2'
+    namespace 'com.example.remind'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.raion_kel2"
-        minSdk 29
+        applicationId "com.example.remind"
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -37,7 +37,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.2'
+        kotlinCompilerExtensionVersion '1.2.0'
     }
     packagingOptions {
         resources {
@@ -60,5 +60,4 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
-
 }
