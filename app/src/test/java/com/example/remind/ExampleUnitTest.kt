@@ -1,4 +1,4 @@
-package com.example.raion_kel2
+package com.example.remind
 
 import org.junit.Test
 
