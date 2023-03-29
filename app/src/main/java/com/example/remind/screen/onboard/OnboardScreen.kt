@@ -78,39 +78,28 @@ fun OnBoardScreen(navController: NavController){
             ) {
                 Text(text = "Daftar", style = Typography.h6_bold, color = Colors.Neutral50)
             }
-            Row(modifier = Modifier
-                .constrainAs(masuktext) {
-                    top.linkTo(registerbtn.bottom, margin = 15.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo((parent.end))
-                }
-                .fillMaxWidth(),
-                Arrangement.SpaceAround) {
-                MyClickableText(onClick = {
-                    /* do something */
-                })
+            Row(
+                modifier = Modifier
+                    .constrainAs(masuktext) {
+                        top.linkTo(registerbtn.bottom, margin = 15.dp)
+                    }
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Sudah punya akun? ",
+                    style = Typography.body14_regular
+                )
+                Text(
+                    text = "Masuk",
+                    style = Typography.body14_semibold,
+                    textDecoration = TextDecoration.Underline,
+                    color = Colors.Secondary900,
+                    modifier = Modifier.clickable {
+                        navController.navigate("login")
+                    }
+                )
             }
         }
     }
-}
-
-@Composable
-fun MyClickableText(onClick: () -> Unit) {
-    val annotatedText = buildAnnotatedString {
-        pushStyle(SpanStyle(color = Colors.Shades300, fontFamily = FontFamily(Font(R.font.poppins_regular)), fontSize = 14.sp))
-        append("Sudah punya akun? ")
-        pushStyle(SpanStyle(color = Colors.Secondary900, fontFamily = FontFamily(Font(R.font.poppins_semibold)), fontSize = 14.sp, textDecoration = TextDecoration.Underline))
-        append("Masuk")
-        pop()
-    }
-    ClickableText(
-        text = annotatedText,
-        onClick = { offset ->
-            annotatedText.getStringAnnotations("url", offset, offset)
-                .firstOrNull()?.let { annotation ->
-                    onClick
-                }
-        },
-        modifier = Modifier.clickable {  }
-    )
 }
