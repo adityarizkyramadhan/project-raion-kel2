@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.remind.R
-import com.example.remind.ui.theme.Color
+import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun OnBoardScreen(navController: NavController){
     Box(modifier = Modifier.background(brush = Brush.verticalGradient(
-        colors = listOf(Color.Primary500, Color.Neutral0),
+        colors = listOf(Colors.Primary500, Colors.Neutral0),
         startY = 0.7f,
         endY = Float.POSITIVE_INFINITY
     ))){
@@ -74,9 +74,9 @@ fun OnBoardScreen(navController: NavController){
                     }
                     .height(60.dp)
                     .width(300.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Primary500)
+                colors = ButtonDefaults.buttonColors(backgroundColor = Colors.Primary500)
             ) {
-                Text(text = "Daftar", style = Typography.h6_bold, color = Color.Neutral50)
+                Text(text = "Daftar", style = Typography.h6_bold, color = Colors.Neutral50)
             }
             Row(modifier = Modifier
                 .constrainAs(masuktext) {
@@ -97,9 +97,9 @@ fun OnBoardScreen(navController: NavController){
 @Composable
 fun MyClickableText(onClick: () -> Unit) {
     val annotatedText = buildAnnotatedString {
-        pushStyle(SpanStyle(color = Color.Shades300, fontFamily = FontFamily(Font(R.font.poppins_regular)), fontSize = 14.sp))
+        pushStyle(SpanStyle(color = Colors.Shades300, fontFamily = FontFamily(Font(R.font.poppins_regular)), fontSize = 14.sp))
         append("Sudah punya akun? ")
-        pushStyle(SpanStyle(color = Color.Secondary900, fontFamily = FontFamily(Font(R.font.poppins_semibold)), fontSize = 14.sp, textDecoration = TextDecoration.Underline))
+        pushStyle(SpanStyle(color = Colors.Secondary900, fontFamily = FontFamily(Font(R.font.poppins_semibold)), fontSize = 14.sp, textDecoration = TextDecoration.Underline))
         append("Masuk")
         pop()
     }
