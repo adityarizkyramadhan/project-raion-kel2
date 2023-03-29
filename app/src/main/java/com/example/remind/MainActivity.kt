@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.remind.screen.onboard.LoginScreen
 import com.example.remind.screen.onboard.OnBoardScreen
+import com.example.remind.screen.onboard.RegisterScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +21,11 @@ class MainActivity : ComponentActivity() {
                     OnBoardScreen(navController)
                 }
                 composable(route = "register"){
+                    RegisterScreen(navController)
 
+                }
+                composable(route = "login"){
+                    LoginScreen(navController)
                 }
             }
 
