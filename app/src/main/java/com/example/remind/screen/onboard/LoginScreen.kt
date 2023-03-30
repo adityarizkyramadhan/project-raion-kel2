@@ -190,7 +190,7 @@ fun LoginScreen(navController: NavController){
                         )
 
                         Button(onClick = {
-//                            navController.navigate("register")
+                            navController.navigate("homepage")
                         },
                             shape = RoundedCornerShape(13),
                             modifier = Modifier
