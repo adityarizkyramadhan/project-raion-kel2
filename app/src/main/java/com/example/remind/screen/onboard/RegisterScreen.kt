@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.remind.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -69,66 +70,42 @@ fun RegisterScreen(navController: NavController){
             },
             backgroundColor = Color.Transparent
         ){
-            ConstraintLayout(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val (amico, rect) = createRefs()
                 Image(
                     painter = painterResource(id = R.drawable.amico),
                     contentDescription = "Amico",
                     modifier = Modifier
                         .size(140.dp)
-                        .constrainAs(amico) {
-                            top.linkTo(parent.top)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                        }
                 )
                 Box(
                     modifier = Modifier
+                        .padding(top = 16.53.dp)
                         .fillMaxWidth()
-                        .height(550.dp)
-                        .constrainAs(rect) {
-                            top.linkTo(amico.bottom, margin = 16.53.dp)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                        }
+                        .fillMaxHeight()
                         .background(
                             color = Colors.Neutral50,
                             RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
                         )
                 ){
-                    ConstraintLayout(
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(32.dp)
+                            .padding(start = 32.dp, end = 32.dp, top = 32.dp)
                     ) {
-                        val (email, emailform, uname, unameform, passwd, passwdform, passwdconfirm, passwdconfirmform, daftarbtn, masuktext) = createRefs()
-
                         Text(text = "Email",
                             style = Typography.body14_regular,
                             color = Colors.Shades300,
-                            modifier = Modifier
-                                .constrainAs(email){}
                         )
 
                         var emailvalue by remember { mutableStateOf("") }
-                        TextField(
-                            modifier = Modifier
-                                .constrainAs(emailform) {
-                                    top.linkTo(email.bottom, margin = 13.dp)
-                                }
-                                .fillMaxWidth()
-                                .height(51.dp)
-                                .background(
-                                    Colors.Neutral100,
-                                    RoundedCornerShape(13.dp)
-                                ),
+                        BasicTextField(
                             value = emailvalue,
                             onValueChange = { emailvalue = it },
-                            placeholder = {Text("youremail@gmail.com")},
                             maxLines = 1,
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Email
@@ -138,127 +115,182 @@ fun RegisterScreen(navController: NavController){
                                 fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Normal
-                            )
+                            ),
+                            decorationBox = {innerTextField ->
+                                Box(
+                                    modifier = Modifier
+                                        .padding(top = 13.dp)
+                                        .fillMaxWidth()
+                                        .height(51.dp)
+                                        .background(
+                                            Colors.Neutral100,
+                                            RoundedCornerShape(13.dp)
+                                        )
+                                        .padding(start = 17.dp, top = 17.dp),
+                                ){
+                                    if (emailvalue.isEmpty()){
+                                        Text(
+                                            text = "youremail@gmail.com",
+                                            color = Colors.Shades300,
+                                            fontFamily =  FontFamily(Font(R.font.poppins_regular)),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Normal
+                                        )
+                                    }
+                                    innerTextField()
+                                }
+                            }
                         )
 
                         Text(text = "Username",
                             style = Typography.body14_regular,
                             color = Colors.Shades300,
                             modifier = Modifier
-                                .constrainAs(uname){
-                                    top.linkTo(emailform.bottom, margin = 15.dp)
-                                }
+                                .padding(top = 15.dp)
                         )
 
                         var unamevalue by remember { mutableStateOf("") }
-                        TextField(
-                            modifier = Modifier
-                                .constrainAs(unameform) {
-                                    top.linkTo(uname.bottom, margin = 13.dp)
-                                }
-                                .fillMaxWidth()
-                                .height(51.dp)
-                                .background(
-                                    Colors.Neutral100,
-                                    RoundedCornerShape(13.dp)
-                                ),
+                        BasicTextField(
                             value = unamevalue,
                             onValueChange = { unamevalue = it },
-                            placeholder = {Text("yourUsername")},
                             maxLines = 1,
                             keyboardOptions = KeyboardOptions.Default.copy(
-                                keyboardType = KeyboardType.Email
+                                keyboardType = KeyboardType.Text
                             ),
                             textStyle = TextStyle(
                                 color = Colors.Shades300,
                                 fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Normal
-                            )
+                            ),
+                            decorationBox = {innerTextField ->
+                                Box(
+                                    modifier = Modifier
+                                        .padding(top = 13.dp)
+                                        .fillMaxWidth()
+                                        .height(51.dp)
+                                        .background(
+                                            Colors.Neutral100,
+                                            RoundedCornerShape(13.dp)
+                                        )
+                                        .padding(start = 17.dp, top = 17.dp),
+                                ){
+                                    if (unamevalue.isEmpty()){
+                                        Text(
+                                            text = "yourUsername",
+                                            color = Colors.Shades300,
+                                            fontFamily =  FontFamily(Font(R.font.poppins_regular)),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Normal
+                                        )
+                                    }
+                                    innerTextField()
+                                }
+                            }
                         )
 
                         Text(text = "Password",
                             style = Typography.body14_regular,
                             color = Colors.Shades300,
                             modifier = Modifier
-                                .constrainAs(passwd){
-                                    top.linkTo(unameform.bottom, margin = 15.dp)
-                                }
+                                .padding(top = 15.dp)
                         )
 
                         var passwdvalue by remember { mutableStateOf("") }
-                        TextField(
-                            modifier = Modifier
-                                .constrainAs(passwdform) {
-                                    top.linkTo(passwd.bottom, margin = 13.dp)
-                                }
-                                .fillMaxWidth()
-                                .height(51.dp)
-                                .background(
-                                    Colors.Neutral100,
-                                    RoundedCornerShape(13.dp)
-                                ),
+                        BasicTextField(
                             value = passwdvalue,
                             onValueChange = { passwdvalue = it },
-                            placeholder = {Text("yourPassword")},
                             maxLines = 1,
-                            visualTransformation = PasswordVisualTransformation(),
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Password
                             ),
+                            visualTransformation = PasswordVisualTransformation(),
                             textStyle = TextStyle(
                                 color = Colors.Shades300,
                                 fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Normal
-                            )
+                            ),
+                            decorationBox = {innerTextField ->
+                                Box(
+                                    modifier = Modifier
+                                        .padding(top = 13.dp)
+                                        .fillMaxWidth()
+                                        .height(51.dp)
+                                        .background(
+                                            Colors.Neutral100,
+                                            RoundedCornerShape(13.dp)
+                                        )
+                                        .padding(start = 17.dp, top = 17.dp),
+                                ){
+                                    if (passwdvalue.isEmpty()){
+                                        Text(
+                                            text = "yourPassword",
+                                            color = Colors.Shades300,
+                                            fontFamily =  FontFamily(Font(R.font.poppins_regular)),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Normal
+                                        )
+                                    }
+                                    innerTextField()
+                                }
+                            }
                         )
 
                         Text(text = "Konfirmasi Password",
                             style = Typography.body14_regular,
                             color = Colors.Shades300,
                             modifier = Modifier
-                                .constrainAs(passwdconfirm){
-                                    top.linkTo(passwdform.bottom, margin = 15.dp)
-                                }
+                                .padding(top = 15.dp)
                         )
 
                         var passwdconfirmvalue by remember { mutableStateOf("") }
-                        TextField(
-                            modifier = Modifier
-                                .constrainAs(passwdconfirmform) {
-                                    top.linkTo(passwdconfirm.bottom, margin = 13.dp)
-                                }
-                                .fillMaxWidth()
-                                .height(51.dp)
-                                .background(
-                                    Colors.Neutral100,
-                                    RoundedCornerShape(13.dp)
-                                ),
+                        BasicTextField(
                             value = passwdconfirmvalue,
                             onValueChange = { passwdconfirmvalue = it },
-                            placeholder = {Text("yourPasswordAgain")},
                             maxLines = 1,
-                            visualTransformation = PasswordVisualTransformation(),
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Password
                             ),
+                            visualTransformation = PasswordVisualTransformation(),
                             textStyle = TextStyle(
                                 color = Colors.Shades300,
                                 fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Normal
-                            )
+                            ),
+                            decorationBox = {innerTextField ->
+                                Box(
+                                    modifier = Modifier
+                                        .padding(top = 13.dp)
+                                        .fillMaxWidth()
+                                        .height(51.dp)
+                                        .background(
+                                            Colors.Neutral100,
+                                            RoundedCornerShape(13.dp)
+                                        )
+                                        .padding(start = 17.dp, top = 17.dp),
+                                ){
+                                    if (passwdconfirmvalue.isEmpty()){
+                                        Text(
+                                            text = "yourPasswordAgain",
+                                            color = Colors.Shades300,
+                                            fontFamily =  FontFamily(Font(R.font.poppins_regular)),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Normal
+                                        )
+                                    }
+                                    innerTextField()
+                                }
+                            }
                         )
 
                         Button(onClick = {
-//                            navController.navigate("register")
+//                            navController.navigate("login")
                         },
                             shape = RoundedCornerShape(13),
                             modifier = Modifier
-                                .constrainAs(daftarbtn) {
-                                    top.linkTo(passwdconfirmform.bottom, margin = 24.dp)
-                                }
+                                .padding(top = 24.dp)
                                 .fillMaxWidth()
                                 .height(60.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = Colors.Primary500)
@@ -268,9 +300,7 @@ fun RegisterScreen(navController: NavController){
 
                         Row(
                             modifier = Modifier
-                                .constrainAs(masuktext) {
-                                    top.linkTo(daftarbtn.bottom, margin = 15.dp)
-                                }
+                                .padding(top = 15.dp, bottom = 32.dp)
                                 .fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
