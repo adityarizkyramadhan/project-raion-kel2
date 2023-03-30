@@ -9,6 +9,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
@@ -33,56 +34,44 @@ fun OnBoardScreen(navController: NavController){
         startY = 0.7f,
         endY = Float.POSITIVE_INFINITY
     ))){
-        ConstraintLayout(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ){
-            val (logo_1, amico, registerbtn, masuktext) = createRefs()
-
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_1), contentDescription = "App Logo",
+                painter = painterResource(id = R.drawable.logo_1),
+                contentDescription = "Logo App",
                 modifier = Modifier
-                    .constrainAs(logo_1) {
-                        top.linkTo(parent.top, margin = 108.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(amico.top, margin = 15.dp)
-                    }
+                    .padding(top = 108.dp)
                     .size(width = 272.92.dp, height = 72.dp)
             )
+
             Image(
-                painter = painterResource(id = R.drawable.amico), contentDescription = "Amico",
+                painter = painterResource(id = R.drawable.amico),
+                contentDescription = "Amico",
                 modifier = Modifier
-                    .constrainAs(amico) {
-                        top.linkTo(logo_1.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(registerbtn.top)
-                    }
+                    .padding(top = 15.dp)
                     .size(width = 295.dp, height = 290.dp)
             )
+
             Button(onClick = {
-                             navController.navigate("register")
+            navController.navigate("register")
             },
                 shape = RoundedCornerShape(13),
                 modifier = Modifier
-                    .constrainAs(registerbtn) {
-                        top.linkTo(amico.bottom, margin = 130.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
+                    .padding(top = 130.dp)
                     .height(60.dp)
                     .width(300.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Colors.Primary500)
             ) {
                 Text(text = "Daftar", style = Typography.h6_bold, color = Colors.Neutral50)
             }
+
             Row(
                 modifier = Modifier
-                    .constrainAs(masuktext) {
-                        top.linkTo(registerbtn.bottom, margin = 15.dp)
-                    }
+                    .padding(top = 15.dp, bottom = 32.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -96,7 +85,7 @@ fun OnBoardScreen(navController: NavController){
                     textDecoration = TextDecoration.Underline,
                     color = Colors.Secondary900,
                     modifier = Modifier.clickable {
-                        navController.navigate("login")
+                    navController.navigate("login")
                     }
                 )
             }
