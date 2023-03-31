@@ -4,16 +4,16 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.LazyGridItemScopeImpl.animateItemPlacement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -66,6 +66,40 @@ fun HomepageScreen(navController: NavController){
                         }
                     }
                 }
+            },
+            bottomBar = {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 30.dp)
+                        .padding(bottom = 30.dp)
+                        .height(55.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                ) {
+                    BottomNavigation(
+                        modifier = Modifier
+                            .align(Alignment.Center),
+                        backgroundColor = Colors.Primary500,
+                        elevation = 0.dp,
+                        contentColor = Color.White
+                    ) {
+                        BottomNavigationItem(
+                            icon = Icon(
+                                painter = painterResource(id = R.drawable.home_btn),
+                                contentDescription = "Home Button",
+                                modifier = Modifier
+                                    .size(18.dp)
+                                    .alpha(
+                                        when()
+                                    )
+                            )
+                            selected = ,
+                            onClick = { /*TODO*/ }
+                        ) {
+
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(30.dp))
             },
             backgroundColor = Color.Transparent
         ){
