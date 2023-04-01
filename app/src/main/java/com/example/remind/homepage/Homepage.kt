@@ -1,20 +1,30 @@
 package com.example.remind.homepage
 
 import android.annotation.SuppressLint
+import android.graphics.Paint.Align
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.LazyGridItemScopeImpl.animateItemPlacement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -27,6 +37,7 @@ import com.example.remind.R
 import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
 
+@ExperimentalMaterialApi
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomepageScreen(navController: NavController){
@@ -66,40 +77,6 @@ fun HomepageScreen(navController: NavController){
                         }
                     }
                 }
-            },
-            bottomBar = {
-                Box(
-                    modifier = Modifier
-                        .padding(horizontal = 30.dp)
-                        .padding(bottom = 30.dp)
-                        .height(55.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                ) {
-                    BottomNavigation(
-                        modifier = Modifier
-                            .align(Alignment.Center),
-                        backgroundColor = Colors.Primary500,
-                        elevation = 0.dp,
-                        contentColor = Color.White
-                    ) {
-                        BottomNavigationItem(
-                            icon = Icon(
-                                painter = painterResource(id = R.drawable.home_btn),
-                                contentDescription = "Home Button",
-                                modifier = Modifier
-                                    .size(18.dp)
-                                    .alpha(
-                                        when()
-                                    )
-                            )
-                            selected = ,
-                            onClick = { /*TODO*/ }
-                        ) {
-
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(30.dp))
             },
             backgroundColor = Color.Transparent
         ){
@@ -277,6 +254,142 @@ fun HomepageScreen(navController: NavController){
                                     color = Colors.Shades300
                                 )
                             }
+                        }
+                    }
+                }
+
+                Text(
+                    text = "Aktivitas",
+                    style = Typography.h5_semibold,
+                    modifier = Modifier
+                        .padding(top = 30.dp, start = 30.dp)
+                )
+
+                ExpandableCard()
+            }
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun ExpandableCard(
+//    title : String,
+//    description : String,
+//    detail : String
+){
+    var expandedState by remember { mutableStateOf(false) }
+    val rotationState by animateFloatAsState(
+        targetValue = if (expandedState) 180f else 0f
+    )
+    
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 14.dp, vertical = 20.dp)
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(204.dp)
+                .background(color = Colors.Neutral50, RoundedCornerShape(10.dp))
+                .animateContentSize(
+                    animationSpec = tween(
+                        delayMillis = 300,
+                        easing = LinearOutSlowInEasing
+                    )
+                ),
+            onClick = {
+                expandedState = !expandedState
+            }
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxHeight()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .width(10.dp)
+                        .background(color = Colors.Secondary500)
+                ) {
+
+                }
+                
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(top = 25.dp, end = 35.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.TopEnd
+                    ) {
+                        Text(
+                            text = "Berlangsung",
+                            modifier = Modifier
+                                .background(color = Colors.Secondary500, RoundedCornerShape(20.dp))
+                                .padding(horizontal = 15.dp, vertical = 5.dp),
+                            style = Typography.body10_regular,
+                            color = Colors.Shades300
+                        )
+                    }
+
+                    Text(
+                        text = "Brainstorming",
+                        style = Typography.body14_semibold,
+                        modifier = Modifier
+                            .padding(start = 20.dp, 10.dp)
+                    )
+
+                    Text(
+                        text = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                        style = Typography.body12_regular,
+                        modifier = Modifier
+                            .padding(start = 20.dp, 10.dp, end = 49.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .height(44.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_alarm),
+                                contentDescription = "Icon Alarm",
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+
+                            Text(
+                                text = "22 Maret 2023",
+                                modifier = Modifier
+                                    .padding(start = 8.dp),
+                                style = Typography.body12_regular,
+                                color = Colors.Neutral800
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {expandedState = !expandedState},
+                            modifier = Modifier
+                                .rotate(rotationState)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_dropdown),
+                                contentDescription = "Icon Dropdown",
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
                         }
                     }
                 }
