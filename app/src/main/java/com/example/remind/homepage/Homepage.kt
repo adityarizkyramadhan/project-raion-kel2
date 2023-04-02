@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
 import androidx.compose.ui.res.painterResource
@@ -265,7 +266,13 @@ fun HomepageScreen(navController: NavController){
                         .padding(top = 30.dp, start = 30.dp)
                 )
 
-                ExpandableCard()
+                ExpandableCard(
+                    title = "Brainstorming",
+                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
+                            "\n" +
+                            " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya"
+                )
             }
         }
     }
@@ -274,9 +281,9 @@ fun HomepageScreen(navController: NavController){
 @ExperimentalMaterialApi
 @Composable
 fun ExpandableCard(
-//    title : String,
-//    description : String,
-//    detail : String
+    title : String,
+    description : String,
+    detail : String
 ){
     var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
@@ -291,34 +298,25 @@ fun ExpandableCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(204.dp)
-                .background(color = Colors.Neutral50, RoundedCornerShape(10.dp))
                 .animateContentSize(
                     animationSpec = tween(
                         delayMillis = 300,
                         easing = LinearOutSlowInEasing
                     )
                 ),
+            backgroundColor = Colors.Secondary500,
+            shape = RoundedCornerShape(10.dp),
             onClick = {
                 expandedState = !expandedState
             }
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxHeight()
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width(10.dp)
-                        .background(color = Colors.Secondary500)
-                ) {
-
-                }
-                
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
+                        .padding(start = 10.dp)
+                        .background(color = Colors.Neutral50)
                 ) {
                     Box(
                         modifier = Modifier
@@ -337,18 +335,48 @@ fun ExpandableCard(
                     }
 
                     Text(
-                        text = "Brainstorming",
+                        text = title,
                         style = Typography.body14_semibold,
                         modifier = Modifier
                             .padding(start = 20.dp, 10.dp)
                     )
 
-                    Text(
-                        text = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
-                        style = Typography.body12_regular,
-                        modifier = Modifier
-                            .padding(start = 20.dp, 10.dp, end = 49.dp)
-                    )
+                    if (expandedState){
+                        Column() {
+                            Text(
+                                text = detail,
+                                style = Typography.body12_regular,
+                                modifier = Modifier
+                                    .padding(start = 20.dp, end = 26.dp)
+                            )
+
+                            Box(
+                                modifier = Modifier
+                                    .padding(top = 14.dp, start = 20.dp)
+                                    .fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "Mark as done",
+                                    modifier = Modifier
+                                        .background(
+                                            color = Colors.Warning300,
+                                            RoundedCornerShape(20.dp)
+                                        )
+                                        .padding(horizontal = 16.5.dp, vertical = 5.dp),
+                                    style = Typography.body10_regular,
+                                    color = Colors.Shades300
+                                )
+                            }
+                        }
+                    }
+                    else {
+                        Text(
+                            text = description,
+                            style = Typography.body12_regular,
+                            modifier = Modifier
+                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
+                        )
+                    }
 
                     Row(
                         modifier = Modifier
