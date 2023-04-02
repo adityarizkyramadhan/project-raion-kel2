@@ -298,6 +298,7 @@ fun ExpandableCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(bottom = 20.dp)
                 .animateContentSize(
                     animationSpec = tween(
                         delayMillis = 300,
@@ -366,6 +367,294 @@ fun ExpandableCard(
                                     style = Typography.body10_regular,
                                     color = Colors.Shades300
                                 )
+                            }
+                        }
+                    }
+                    else {
+                        Text(
+                            text = description,
+                            style = Typography.body12_regular,
+                            modifier = Modifier
+                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .height(44.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_alarm),
+                                contentDescription = "Icon Alarm",
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+
+                            Text(
+                                text = "22 Maret 2023",
+                                modifier = Modifier
+                                    .padding(start = 8.dp),
+                                style = Typography.body12_regular,
+                                color = Colors.Neutral800
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {expandedState = !expandedState},
+                            modifier = Modifier
+                                .rotate(rotationState)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_dropdown),
+                                contentDescription = "Icon Dropdown",
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 20.dp)
+                .animateContentSize(
+                    animationSpec = tween(
+                        delayMillis = 300,
+                        easing = LinearOutSlowInEasing
+                    )
+                ),
+            backgroundColor = Colors.Success500,
+            shape = RoundedCornerShape(10.dp),
+            onClick = {
+                expandedState = !expandedState
+            }
+        ) {
+            Row(
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(start = 10.dp)
+                        .background(color = Colors.Neutral50)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(top = 25.dp, end = 35.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.TopEnd
+                    ) {
+                        Text(
+                            text = "Selesai",
+                            modifier = Modifier
+                                .background(color = Colors.Success500, RoundedCornerShape(20.dp))
+                                .padding(horizontal = 15.dp, vertical = 5.dp),
+                            style = Typography.body10_regular,
+                            color = Colors.Shades300
+                        )
+                    }
+
+                    Text(
+                        text = title,
+                        style = Typography.body14_semibold,
+                        modifier = Modifier
+                            .padding(start = 20.dp, 10.dp)
+                    )
+
+                    if (expandedState){
+                        Column() {
+                            Text(
+                                text = detail,
+                                style = Typography.body12_regular,
+                                modifier = Modifier
+                                    .padding(start = 20.dp, end = 26.dp)
+                            )
+
+                            Box(
+                                modifier = Modifier
+                                    .padding(top = 14.dp, start = 20.dp)
+                                    .fillMaxWidth()
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .background(
+                                            color = Colors.Error500,
+                                            RoundedCornerShape(20.dp)
+                                        )
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_delete),
+                                        contentDescription = "Icon Delete",
+                                        modifier = Modifier
+                                            .padding(start = 26.dp)
+                                            .padding(vertical = 5.dp)
+                                            .size(12.dp)
+                                    )
+                                    Text(
+                                        text = "Delete",
+                                        modifier = Modifier
+                                            .padding(start = 5.dp, end = 26.dp)
+                                            .padding(vertical = 5.dp),
+                                        style = Typography.body10_regular,
+                                        color = Colors.Shades300
+                                    )
+                                }
+
+                            }
+                        }
+                    }
+                    else {
+                        Text(
+                            text = description,
+                            style = Typography.body12_regular,
+                            modifier = Modifier
+                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .height(44.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_alarm),
+                                contentDescription = "Icon Alarm",
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+
+                            Text(
+                                text = "22 Maret 2023",
+                                modifier = Modifier
+                                    .padding(start = 8.dp),
+                                style = Typography.body12_regular,
+                                color = Colors.Neutral800
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {expandedState = !expandedState},
+                            modifier = Modifier
+                                .rotate(rotationState)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_dropdown),
+                                contentDescription = "Icon Dropdown",
+                                modifier = Modifier
+                                    .size(24.dp)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 20.dp)
+                .animateContentSize(
+                    animationSpec = tween(
+                        delayMillis = 300,
+                        easing = LinearOutSlowInEasing
+                    )
+                ),
+            backgroundColor = Colors.Error500,
+            shape = RoundedCornerShape(10.dp),
+            onClick = {
+                expandedState = !expandedState
+            }
+        ) {
+            Row(
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(start = 10.dp)
+                        .background(color = Colors.Neutral50)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(top = 25.dp, end = 35.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.TopEnd
+                    ) {
+                        Text(
+                            text = "Terlambat",
+                            modifier = Modifier
+                                .background(color = Colors.Error500, RoundedCornerShape(20.dp))
+                                .padding(horizontal = 15.dp, vertical = 5.dp),
+                            style = Typography.body10_regular,
+                            color = Colors.Shades300
+                        )
+                    }
+
+                    Text(
+                        text = title,
+                        style = Typography.body14_semibold,
+                        modifier = Modifier
+                            .padding(start = 20.dp, 10.dp)
+                    )
+
+                    if (expandedState){
+                        Column() {
+                            Text(
+                                text = detail,
+                                style = Typography.body12_regular,
+                                modifier = Modifier
+                                    .padding(start = 20.dp, end = 26.dp)
+                            )
+
+                            Box(
+                                modifier = Modifier
+                                    .padding(top = 14.dp, start = 20.dp)
+                                    .fillMaxWidth()
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .background(
+                                            color = Colors.Error500,
+                                            RoundedCornerShape(20.dp)
+                                        )
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_delete),
+                                        contentDescription = "Icon Delete",
+                                        modifier = Modifier
+                                            .padding(start = 26.dp)
+                                            .padding(vertical = 5.dp)
+                                            .size(12.dp)
+                                    )
+                                    Text(
+                                        text = "Delete",
+                                        modifier = Modifier
+                                            .padding(start = 5.dp, end = 26.dp)
+                                            .padding(vertical = 5.dp),
+                                        style = Typography.body10_regular,
+                                        color = Colors.Shades300
+                                    )
+                                }
+
                             }
                         }
                     }
