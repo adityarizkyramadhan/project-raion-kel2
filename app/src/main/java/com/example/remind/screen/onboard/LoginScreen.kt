@@ -28,14 +28,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun RegisterScreen(navController: NavController){
+fun LoginScreen(navController: NavController){
     Box(modifier = Modifier.background(brush = Brush.verticalGradient(
         colors = listOf(Colors.Primary500, Colors.Neutral0),
         startY = 0.7f,
@@ -80,11 +79,11 @@ fun RegisterScreen(navController: NavController){
                     painter = painterResource(id = R.drawable.amico),
                     contentDescription = "Amico",
                     modifier = Modifier
-                        .size(140.dp)
+                        .size(width = 295.dp, height = 290.dp)
                 )
                 Box(
                     modifier = Modifier
-                        .padding(top = 16.53.dp)
+                        .padding(top = 36.dp)
                         .fillMaxWidth()
                         .fillMaxHeight()
                         .background(
@@ -95,11 +94,11 @@ fun RegisterScreen(navController: NavController){
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(start = 32.dp, end = 32.dp, top = 32.dp)
+                            .padding(start = 30.dp, end = 30.dp, top = 70.dp)
                     ) {
                         Text(text = "Email",
                             style = Typography.body14_regular,
-                            color = Colors.Shades300,
+                            color = Colors.Shades300
                         )
 
                         var emailvalue by remember { mutableStateOf("") }
@@ -131,53 +130,6 @@ fun RegisterScreen(navController: NavController){
                                     if (emailvalue.isEmpty()){
                                         Text(
                                             text = "youremail@gmail.com",
-                                            color = Colors.Shades300,
-                                            fontFamily =  FontFamily(Font(R.font.poppins_regular)),
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Normal
-                                        )
-                                    }
-                                    innerTextField()
-                                }
-                            }
-                        )
-
-                        Text(text = "Username",
-                            style = Typography.body14_regular,
-                            color = Colors.Shades300,
-                            modifier = Modifier
-                                .padding(top = 15.dp)
-                        )
-
-                        var unamevalue by remember { mutableStateOf("") }
-                        BasicTextField(
-                            value = unamevalue,
-                            onValueChange = { unamevalue = it },
-                            maxLines = 1,
-                            keyboardOptions = KeyboardOptions.Default.copy(
-                                keyboardType = KeyboardType.Text
-                            ),
-                            textStyle = TextStyle(
-                                color = Colors.Shades300,
-                                fontFamily =  FontFamily(Font(R.font.poppins_regular)),
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Normal
-                            ),
-                            decorationBox = {innerTextField ->
-                                Box(
-                                    modifier = Modifier
-                                        .padding(top = 13.dp)
-                                        .fillMaxWidth()
-                                        .height(51.dp)
-                                        .background(
-                                            Colors.Neutral100,
-                                            RoundedCornerShape(13.dp)
-                                        )
-                                        .padding(start = 17.dp, top = 17.dp),
-                                ){
-                                    if (unamevalue.isEmpty()){
-                                        Text(
-                                            text = "yourUsername",
                                             color = Colors.Shades300,
                                             fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                             fontSize = 14.sp,
@@ -237,86 +189,17 @@ fun RegisterScreen(navController: NavController){
                             }
                         )
 
-                        Text(text = "Konfirmasi Password",
-                            style = Typography.body14_regular,
-                            color = Colors.Shades300,
-                            modifier = Modifier
-                                .padding(top = 15.dp)
-                        )
-
-                        var passwdconfirmvalue by remember { mutableStateOf("") }
-                        BasicTextField(
-                            value = passwdconfirmvalue,
-                            onValueChange = { passwdconfirmvalue = it },
-                            maxLines = 1,
-                            keyboardOptions = KeyboardOptions.Default.copy(
-                                keyboardType = KeyboardType.Password
-                            ),
-                            visualTransformation = PasswordVisualTransformation(),
-                            textStyle = TextStyle(
-                                color = Colors.Shades300,
-                                fontFamily =  FontFamily(Font(R.font.poppins_regular)),
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Normal
-                            ),
-                            decorationBox = {innerTextField ->
-                                Box(
-                                    modifier = Modifier
-                                        .padding(top = 13.dp)
-                                        .fillMaxWidth()
-                                        .height(51.dp)
-                                        .background(
-                                            Colors.Neutral100,
-                                            RoundedCornerShape(13.dp)
-                                        )
-                                        .padding(start = 17.dp, top = 17.dp),
-                                ){
-                                    if (passwdconfirmvalue.isEmpty()){
-                                        Text(
-                                            text = "yourPasswordAgain",
-                                            color = Colors.Shades300,
-                                            fontFamily =  FontFamily(Font(R.font.poppins_regular)),
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Normal
-                                        )
-                                    }
-                                    innerTextField()
-                                }
-                            }
-                        )
-
                         Button(onClick = {
-//                            navController.navigate("login")
+                            navController.navigate("homepage")
                         },
                             shape = RoundedCornerShape(13),
                             modifier = Modifier
-                                .padding(top = 24.dp)
+                                .padding(top = 24.dp, bottom = 32.dp)
                                 .fillMaxWidth()
                                 .height(60.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = Colors.Primary500)
                         ) {
-                            Text(text = "Daftar", style = Typography.h6_bold, color = Colors.Neutral50)
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 15.dp, bottom = 32.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = "Sudah punya akun? ",
-                                style = Typography.body14_regular
-                            )
-                            Text(
-                                text = "Masuk",
-                                style = Typography.body14_semibold,
-                                textDecoration = TextDecoration.Underline,
-                                color = Colors.Secondary900,
-                                modifier = Modifier.clickable {
-                                    navController.navigate("login")
-                                }
-                            )
+                            Text(text = "Masuk", style = Typography.h6_bold, color = Colors.Neutral50)
                         }
                     }
                 }
@@ -328,5 +211,5 @@ fun RegisterScreen(navController: NavController){
 //@Preview(showSystemUi = true)
 //@Composable
 //fun RegisterPreview(){
-//    RegisterScreen()
+//    LoginScreen()
 //}

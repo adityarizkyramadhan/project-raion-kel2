@@ -2,7 +2,7 @@ package com.example.remind.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-object Color{
+object Colors{
     val Neutral0 = Color(0xFFFFFFFF)
     val Neutral50 = Color(0xFFF6F6F6)
     val Neutral100 = Color(0xFFE7ECED)
