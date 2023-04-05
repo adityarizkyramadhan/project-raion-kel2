@@ -268,7 +268,8 @@ fun HomepageScreen(navController: NavController){
 
                 ExpandableCard(
                     title = "Brainstorming",
-                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
+                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate" +
+                            " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
                             "\n" +
                             " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
                     description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya"
