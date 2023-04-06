@@ -47,6 +47,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.room:room-common:2.4.2'
     def nav_version = "2.4.0-alpha10"
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -64,4 +65,8 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    implementation "com.google.accompanist:accompanist-pager:0.27.1"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.27.1"
+    implementation("androidx.compose.foundation:foundation:1.0.4")
 }
