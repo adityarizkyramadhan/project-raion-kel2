@@ -11,6 +11,7 @@ import com.example.remind.homepage.HomepageScreen
 import com.example.remind.screen.onboard.LoginScreen
 import com.example.remind.screen.onboard.OnBoardScreen
 import com.example.remind.screen.onboard.RegisterScreen
+import com.example.remind.task.TaskScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -33,6 +34,9 @@ class MainActivity : ComponentActivity() {
                 composable(route = "homepage"){
                     HomepageScreen(navController)
                 }
+//                composable(route = "task"){
+//                    TaskScreen(navController)
+//                }
             }
 
         }
