@@ -192,7 +192,7 @@ fun LoginScreen(navController: NavController){
                         Button(onClick = {
                             navController.navigate("homepage")
                         },
-                            shape = RoundedCornerShape(13),
+                            shape = RoundedCornerShape(13.dp),
                             modifier = Modifier
                                 .padding(top = 24.dp, bottom = 32.dp)
                                 .fillMaxWidth()

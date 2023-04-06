@@ -1,5 +1,6 @@
 package com.example.remind.task
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.Animatable
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -38,11 +40,9 @@ import com.example.remind.homepage.ExpandableCard
 import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.pagerTabIndicatorOffset
-import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@ExperimentalMaterialApi
 @Composable
 fun TaskScreen(){
     Box(
@@ -50,108 +50,124 @@ fun TaskScreen(){
             .fillMaxSize()
             .background(color = Colors.Neutral50)
     ){
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(top = 68.dp, start = 15.dp, end = 19.39.dp)
-                    .fillMaxWidth()
-                    .height(170.25.dp)
-                    .background(
-                        brush = Brush.linearGradient(
-                            colors = listOf(Colors.Primary500, Colors.Primary50)
-                        ),
-                        RoundedCornerShape(10.dp)
-                    )
-            ){
-                Row(
+        Scaffold(
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { /*TODO*/ },
                     modifier = Modifier
-                        .fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                        .size(44.dp),
+                    backgroundColor = Colors.Primary500,
+                    contentColor = Colors.Neutral100
                 ) {
-                    Text(
-                        text = "SELESAIKAN\n" + "TUGASMU!",
-                        style = Typography.h5_bold,
-                        color = Colors.Neutral50
-                    )
-
-                    Image(
-                        painter = painterResource(id = R.drawable.cuate),
-                        contentDescription = "Cuate",
-                        modifier = Modifier
-                            .size(width = 144.61.dp, height = 150.25.dp)
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Task"
                     )
                 }
             }
-
-            var value by remember { mutableStateOf("") }
-            BasicTextField(
-                value = value,
-                onValueChange = { value = it },
-                maxLines = 1,
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text
-                ),
-                textStyle = TextStyle(
-                    color = Colors.Neutral700,
-                    fontFamily =  FontFamily(Font(R.font.poppins_regular)),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Normal
-                ),
-                decorationBox = {innerTextField ->
-                    Box(
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Box(
+                    modifier = Modifier
+                        .padding(top = 68.dp, start = 15.dp, end = 19.39.dp)
+                        .fillMaxWidth()
+                        .height(170.25.dp)
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Colors.Primary500, Colors.Primary50)
+                            ),
+                            RoundedCornerShape(10.dp)
+                        )
+                ){
+                    Row(
                         modifier = Modifier
-                            .padding(top = 23.dp)
-                            .padding(horizontal = 23.dp)
-                            .fillMaxWidth()
-                            .border(
-                                width = 1.dp,
-                                color = Colors.Primary50,
-                                shape = RoundedCornerShape(5.dp)
-                            )
-                            .height(38.dp)
-                    ){
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            if (value.isEmpty()){
-                                Text(
-                                    text = "Cari Tugas",
-                                    color = Colors.Neutral700,
-                                    fontFamily =  FontFamily(Font(R.font.poppins_regular)),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.Normal,
-                                    modifier = Modifier
-                                        .weight(1f)
-                                )
-                            }
-                            innerTextField()
+                            .fillMaxSize(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "SELESAIKAN\n" + "TUGASMU!",
+                            style = Typography.h5_bold,
+                            color = Colors.Neutral50
+                        )
 
-                            IconButton(
-                                onClick = { /*TODO*/ }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = "Icon Search",
-                                    modifier = Modifier
-                                        .size(18.dp)
-                                        .weight(1f)
+                        Image(
+                            painter = painterResource(id = R.drawable.cuate),
+                            contentDescription = "Cuate",
+                            modifier = Modifier
+                                .size(width = 144.61.dp, height = 150.25.dp)
+                        )
+                    }
+                }
+
+                var value by remember { mutableStateOf("") }
+                BasicTextField(
+                    value = value,
+                    onValueChange = { value = it },
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Text
+                    ),
+                    textStyle = TextStyle(
+                        color = Colors.Neutral700,
+                        fontFamily =  FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal
+                    ),
+                    decorationBox = {innerTextField ->
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 23.dp)
+                                .padding(horizontal = 23.dp)
+                                .fillMaxWidth()
+                                .border(
+                                    width = 1.dp,
+                                    color = Colors.Primary50,
+                                    shape = RoundedCornerShape(5.dp)
                                 )
+                                .height(38.dp)
+                        ){
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                if (value.isEmpty()){
+                                    Text(
+                                        text = "Cari Tugas",
+                                        color = Colors.Neutral700,
+                                        fontFamily =  FontFamily(Font(R.font.poppins_regular)),
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Normal,
+                                        modifier = Modifier
+                                            .weight(1f)
+                                    )
+                                }
+                                innerTextField()
+
+                                IconButton(
+                                    onClick = { /*TODO*/ }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = "Icon Search",
+                                        modifier = Modifier
+                                            .size(18.dp)
+                                            .weight(1f)
+                                    )
+                                }
                             }
                         }
                     }
-                }
-            )
-
-            TabLayout()
+                )
+                TabLayout()
+            }
         }
     }
 }
@@ -160,85 +176,93 @@ fun TaskScreen(){
 @Composable
 fun TabLayout(){
     var selectedTabIndex by remember { mutableStateOf(0) }
-    
+
     Column(
         modifier = Modifier
-            .padding(horizontal = 10.5.dp, vertical = 30.dp)
-            .height(32.dp)
+            .fillMaxSize()
+            .padding(top = 30.dp)
     ) {
-        TabRow(
-            selectedTabIndex,
-            backgroundColor = Colors.Neutral50,
-            indicator = { }
-        ){
-            Tab(
-                text = {
-                    Text(
-                        text = "Semua",
-                        color = if (selectedTabIndex == 0) Colors.Neutral50 else Colors.Shades300,
-                        style = Typography.body10_regular
-                    )
-                },
-                selected =  selectedTabIndex == 0,
-                onClick = { selectedTabIndex = 0},
-                modifier = Modifier
-                    .background(
-                        if (selectedTabIndex == 0) Colors.Primary500 else Color.Transparent,
-                        RoundedCornerShape(20.dp)
-                    )
-                    .weight(1f)
-            )
-            Tab(
-                text = {
-                    Text(
-                        text = "Berlangsung",
-                        color = if (selectedTabIndex == 1) Colors.Neutral50 else Colors.Shades300,
-                        style = Typography.body10_regular
-                    )
-                },
-                selected =  selectedTabIndex == 1,
-                onClick = { selectedTabIndex = 1},
-                modifier = Modifier
-                    .background(
-                        if (selectedTabIndex == 1) Colors.Primary500 else Color.Transparent,
-                        RoundedCornerShape(20.dp)
-                    )
-                    .weight(1f)
-            )
-            Tab(
-                text = {
-                    Text(
-                        text = "Terlambat",
-                        color = if (selectedTabIndex == 2) Colors.Neutral50 else Colors.Shades300,
-                        style = Typography.body10_regular
-                    )
-                },
-                selected =  selectedTabIndex == 2,
-                onClick = { selectedTabIndex = 2},
-                modifier = Modifier
-                    .background(
-                        if (selectedTabIndex == 2) Colors.Primary500 else Color.Transparent,
-                        RoundedCornerShape(20.dp)
-                    )
-                    .weight(1f)
-            )
-            Tab(
-                text = {
-                    Text(
-                        text = "Selesai",
-                        color = if (selectedTabIndex == 3) Colors.Neutral50 else Colors.Shades300,
-                        style = Typography.body10_regular
-                    )
-                },
-                selected =  selectedTabIndex == 3,
-                onClick = { selectedTabIndex = 3},
-                modifier = Modifier
-                    .background(
-                        if (selectedTabIndex == 3) Colors.Primary500 else Color.Transparent,
-                        RoundedCornerShape(20.dp)
-                    )
-                    .weight(1f)
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.5.dp)
+                .height(32.dp)
+        ) {
+            TabRow(
+                selectedTabIndex,
+                backgroundColor = Colors.Neutral50,
+                indicator = { }
+            ){
+                Tab(
+                    text = {
+                        Text(
+                            text = "Semua",
+                            color = if (selectedTabIndex == 0) Colors.Neutral50 else Colors.Shades300,
+                            style = Typography.body10_regular
+                        )
+                    },
+                    selected =  selectedTabIndex == 0,
+                    onClick = { selectedTabIndex = 0},
+                    modifier = Modifier
+                        .background(
+                            if (selectedTabIndex == 0) Colors.Primary500 else Color.Transparent,
+                            RoundedCornerShape(20.dp)
+                        )
+                        .weight(1f)
+                )
+                Tab(
+                    text = {
+                        Text(
+                            text = "Berlangsung",
+                            color = if (selectedTabIndex == 1) Colors.Neutral50 else Colors.Shades300,
+                            style = Typography.body10_regular,
+                            fontSize = 9.sp
+                        )
+                    },
+                    selected =  selectedTabIndex == 1,
+                    onClick = { selectedTabIndex = 1},
+                    modifier = Modifier
+                        .background(
+                            if (selectedTabIndex == 1) Colors.Primary500 else Color.Transparent,
+                            RoundedCornerShape(20.dp)
+                        )
+                        .weight(1f)
+                )
+                Tab(
+                    text = {
+                        Text(
+                            text = "Terlambat",
+                            color = if (selectedTabIndex == 2) Colors.Neutral50 else Colors.Shades300,
+                            style = Typography.body10_regular
+                        )
+                    },
+                    selected =  selectedTabIndex == 2,
+                    onClick = { selectedTabIndex = 2},
+                    modifier = Modifier
+                        .background(
+                            if (selectedTabIndex == 2) Colors.Primary500 else Color.Transparent,
+                            RoundedCornerShape(20.dp)
+                        )
+                        .weight(1f)
+                )
+                Tab(
+                    text = {
+                        Text(
+                            text = "Selesai",
+                            color = if (selectedTabIndex == 3) Colors.Neutral50 else Colors.Shades300,
+                            style = Typography.body10_regular
+                        )
+                    },
+                    selected =  selectedTabIndex == 3,
+                    onClick = { selectedTabIndex = 3},
+                    modifier = Modifier
+                        .background(
+                            if (selectedTabIndex == 3) Colors.Primary500 else Color.Transparent,
+                            RoundedCornerShape(20.dp)
+                        )
+                        .weight(1f)
+                )
+            }
         }
         TabContent(tabIndex = selectedTabIndex)
     }
@@ -249,22 +273,26 @@ fun TabLayout(){
 fun TabContent(tabIndex: Int){
     when (tabIndex){
         0 -> {
-            ExpandableCard(title = "Brainstorming", description = "11111", detail = "00000")
+            ExpandableCard(title = "Brainstorming", description = "11111", detail = "00000", status = "Berlangsung")
+            ExpandableCard(title = "Brainstorming", description = "11111", detail = "00000", status = "Selesai")
+            ExpandableCard(title = "Brainstorming", description = "11111", detail = "00000", status = "Terlambat")
         }
         1 -> {
-            ExpandableCard(title = "Desain", description = "11111", detail = "00000")
+            ExpandableCard(title = "Desain", description = "11111", detail = "00000", status = "Berlangsung")
         }
         2 -> {
-            ExpandableCard(title = "Develop", description = "11111", detail = "00000")
+            ExpandableCard(title = "Develop", description = "11111", detail = "00000", status = "Terlambat")
         }
         3 -> {
-            ExpandableCard(title = "Deploy", description = "11111", detail = "00000")
+            ExpandableCard(title = "Deploy", description = "11111", detail = "00000", status = "Selesai")
         }
     }
 }
 
+@ExperimentalMaterialApi
 @Preview(showSystemUi = true)
 @Composable
 fun TaskPreview(){
     TaskScreen()
+//    TabLayout()
 }

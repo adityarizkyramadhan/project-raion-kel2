@@ -272,7 +272,26 @@ fun HomepageScreen(navController: NavController){
                             " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
                             "\n" +
                             " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
-                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya"
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                    status = "Berlangsung"
+                )
+                ExpandableCard(
+                    title = "Brainstorming",
+                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate" +
+                            " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
+                            "\n" +
+                            " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                    status = "Selesai"
+                )
+                ExpandableCard(
+                    title = "Brainstorming",
+                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate" +
+                            " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
+                            "\n" +
+                            " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                    status = "Terlambat"
                 )
             }
         }
@@ -284,7 +303,8 @@ fun HomepageScreen(navController: NavController){
 fun ExpandableCard(
     title : String,
     description : String,
-    detail : String
+    detail : String,
+    status : String
 ){
     var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
@@ -299,14 +319,13 @@ fun ExpandableCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 20.dp)
                 .animateContentSize(
                     animationSpec = tween(
                         delayMillis = 300,
                         easing = LinearOutSlowInEasing
                     )
                 ),
-            backgroundColor = Colors.Secondary500,
+            backgroundColor = (if (status == "Berlangsung") Colors.Secondary500 else if (status == "Selesai") Colors.Success500 else if(status == "Terlambat") Colors.Error500 else TODO()) as Color,
             shape = RoundedCornerShape(10.dp),
             onClick = {
                 expandedState = !expandedState
@@ -316,7 +335,6 @@ fun ExpandableCard(
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxHeight()
                         .padding(start = 10.dp)
                         .background(color = Colors.Neutral50)
                 ) {
@@ -326,336 +344,92 @@ fun ExpandableCard(
                             .fillMaxWidth(),
                         contentAlignment = Alignment.TopEnd
                     ) {
-                        Text(
-                            text = "Berlangsung",
-                            modifier = Modifier
-                                .background(color = Colors.Secondary500, RoundedCornerShape(20.dp))
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            style = Typography.body10_regular,
-                            color = Colors.Shades300
-                        )
-                    }
-
-                    Text(
-                        text = title,
-                        style = Typography.body14_semibold,
-                        modifier = Modifier
-                            .padding(start = 20.dp, 10.dp)
-                    )
-
-                    if (expandedState){
-                        Column() {
+                        if (status == "Berlangsung"){
                             Text(
-                                text = detail,
-                                style = Typography.body12_regular,
+                                text = status,
                                 modifier = Modifier
-                                    .padding(start = 20.dp, end = 26.dp)
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = 14.dp, start = 20.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                Text(
-                                    text = "Mark as done",
-                                    modifier = Modifier
-                                        .background(
-                                            color = Colors.Warning300,
-                                            RoundedCornerShape(20.dp)
-                                        )
-                                        .padding(horizontal = 16.5.dp, vertical = 5.dp),
-                                    style = Typography.body10_regular,
-                                    color = Colors.Shades300
-                                )
-                            }
-                        }
-                    }
-                    else {
-                        Text(
-                            text = description,
-                            style = Typography.body12_regular,
-                            modifier = Modifier
-                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp)
-                            .height(44.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .weight(1f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_alarm),
-                                contentDescription = "Icon Alarm",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
-
-                            Text(
-                                text = "22 Maret 2023",
-                                modifier = Modifier
-                                    .padding(start = 8.dp),
-                                style = Typography.body12_regular,
-                                color = Colors.Neutral800
-                            )
-                        }
-
-                        IconButton(
-                            onClick = {expandedState = !expandedState},
-                            modifier = Modifier
-                                .rotate(rotationState)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_dropdown),
-                                contentDescription = "Icon Dropdown",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
-                .animateContentSize(
-                    animationSpec = tween(
-                        delayMillis = 300,
-                        easing = LinearOutSlowInEasing
-                    )
-                ),
-            backgroundColor = Colors.Success500,
-            shape = RoundedCornerShape(10.dp),
-            onClick = {
-                expandedState = !expandedState
-            }
-        ) {
-            Row(
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(start = 10.dp)
-                        .background(color = Colors.Neutral50)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 25.dp, end = 35.dp)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.TopEnd
-                    ) {
-                        Text(
-                            text = "Selesai",
-                            modifier = Modifier
-                                .background(color = Colors.Success500, RoundedCornerShape(20.dp))
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            style = Typography.body10_regular,
-                            color = Colors.Shades300
-                        )
-                    }
-
-                    Text(
-                        text = title,
-                        style = Typography.body14_semibold,
-                        modifier = Modifier
-                            .padding(start = 20.dp, 10.dp)
-                    )
-
-                    if (expandedState){
-                        Column() {
-                            Text(
-                                text = detail,
-                                style = Typography.body12_regular,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 26.dp)
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = 14.dp, start = 20.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .background(
-                                            color = Colors.Error500,
-                                            RoundedCornerShape(20.dp)
-                                        )
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_delete),
-                                        contentDescription = "Icon Delete",
-                                        modifier = Modifier
-                                            .padding(start = 26.dp)
-                                            .padding(vertical = 5.dp)
-                                            .size(12.dp)
+                                    .background(
+                                        color = Colors.Secondary500,
+                                        RoundedCornerShape(20.dp)
                                     )
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                style = Typography.body10_regular,
+                                color = Colors.Shades300
+                            )
+                        } else if (status == "Selesai"){
+                            Text(
+                                text = status,
+                                modifier = Modifier
+                                    .background(
+                                        color = Colors.Success500,
+                                        RoundedCornerShape(20.dp)
+                                    )
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                style = Typography.body10_regular,
+                                color = Colors.Shades300
+                            )
+                        } else if (status == "Terlambat"){
+                            Text(
+                                text = status,
+                                modifier = Modifier
+                                    .background(color = Colors.Error500, RoundedCornerShape(20.dp))
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                style = Typography.body10_regular,
+                                color = Colors.Shades300
+                            )
+                        }
+                    }
+
+                    Text(
+                        text = title,
+                        style = Typography.body14_semibold,
+                        modifier = Modifier
+                            .padding(start = 20.dp, 10.dp)
+                    )
+
+                    if (expandedState){
+                        Column() {
+                            Text(
+                                text = detail,
+                                style = Typography.body12_regular,
+                                modifier = Modifier
+                                    .padding(start = 20.dp, end = 26.dp)
+                            )
+
+                            Button(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(20.dp),
+                                modifier = Modifier
+                                    .padding(top = 14.dp, start = 20.dp),
+                                colors = (if (status == "Berlangsung") ButtonDefaults.buttonColors(backgroundColor = Colors.Warning300) else if (status == "Selesai" || status == "Terlambat") ButtonDefaults.buttonColors(backgroundColor = Colors.Error500) else TODO()) as ButtonColors
+                            ) {
+                                if (status == "Berlangsung"){
                                     Text(
-                                        text = "Delete",
-                                        modifier = Modifier
-                                            .padding(start = 5.dp, end = 26.dp)
-                                            .padding(vertical = 5.dp),
+                                        text = "Mark as done",
                                         style = Typography.body10_regular,
                                         color = Colors.Shades300
                                     )
-                                }
-
-                            }
-                        }
-                    }
-                    else {
-                        Text(
-                            text = description,
-                            style = Typography.body12_regular,
-                            modifier = Modifier
-                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp)
-                            .height(44.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .weight(1f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_alarm),
-                                contentDescription = "Icon Alarm",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
-
-                            Text(
-                                text = "22 Maret 2023",
-                                modifier = Modifier
-                                    .padding(start = 8.dp),
-                                style = Typography.body12_regular,
-                                color = Colors.Neutral800
-                            )
-                        }
-
-                        IconButton(
-                            onClick = {expandedState = !expandedState},
-                            modifier = Modifier
-                                .rotate(rotationState)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_dropdown),
-                                contentDescription = "Icon Dropdown",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
-                .animateContentSize(
-                    animationSpec = tween(
-                        delayMillis = 300,
-                        easing = LinearOutSlowInEasing
-                    )
-                ),
-            backgroundColor = Colors.Error500,
-            shape = RoundedCornerShape(10.dp),
-            onClick = {
-                expandedState = !expandedState
-            }
-        ) {
-            Row(
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(start = 10.dp)
-                        .background(color = Colors.Neutral50)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 25.dp, end = 35.dp)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.TopEnd
-                    ) {
-                        Text(
-                            text = "Terlambat",
-                            modifier = Modifier
-                                .background(color = Colors.Error500, RoundedCornerShape(20.dp))
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            style = Typography.body10_regular,
-                            color = Colors.Shades300
-                        )
-                    }
-
-                    Text(
-                        text = title,
-                        style = Typography.body14_semibold,
-                        modifier = Modifier
-                            .padding(start = 20.dp, 10.dp)
-                    )
-
-                    if (expandedState){
-                        Column() {
-                            Text(
-                                text = detail,
-                                style = Typography.body12_regular,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 26.dp)
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = 14.dp, start = 20.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .background(
-                                            color = Colors.Error500,
-                                            RoundedCornerShape(20.dp)
+                                } else if (status == "Selesai" || status == "Terlambat"){
+                                    Row(
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_delete),
+                                            contentDescription = "Icon Delete",
+                                            modifier = Modifier
+                                                .padding(start = 26.dp)
+                                                .padding(vertical = 5.dp)
+                                                .size(12.dp)
                                         )
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_delete),
-                                        contentDescription = "Icon Delete",
-                                        modifier = Modifier
-                                            .padding(start = 26.dp)
-                                            .padding(vertical = 5.dp)
-                                            .size(12.dp)
-                                    )
-                                    Text(
-                                        text = "Delete",
-                                        modifier = Modifier
-                                            .padding(start = 5.dp, end = 26.dp)
-                                            .padding(vertical = 5.dp),
-                                        style = Typography.body10_regular,
-                                        color = Colors.Shades300
-                                    )
+                                        Text(
+                                            text = "Delete",
+                                            modifier = Modifier
+                                                .padding(start = 5.dp, end = 26.dp)
+                                                .padding(vertical = 5.dp),
+                                            style = Typography.body10_regular,
+                                            color = Colors.Shades300
+                                        )
+                                    }
                                 }
-
                             }
                         }
                     }

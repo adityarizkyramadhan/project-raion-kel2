@@ -288,7 +288,7 @@ fun RegisterScreen(navController: NavController){
                         Button(onClick = {
 //                            navController.navigate("login")
                         },
-                            shape = RoundedCornerShape(13),
+                            shape = RoundedCornerShape(13.dp),
                             modifier = Modifier
                                 .padding(top = 24.dp)
                                 .fillMaxWidth()

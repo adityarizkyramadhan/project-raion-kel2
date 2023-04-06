@@ -59,7 +59,7 @@ fun OnBoardScreen(navController: NavController){
             Button(onClick = {
             navController.navigate("register")
             },
-                shape = RoundedCornerShape(13),
+                shape = RoundedCornerShape(13.dp),
                 modifier = Modifier
                     .padding(top = 130.dp)
                     .height(60.dp)
