@@ -34,8 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.room.Index
 import com.example.remind.R
+import com.example.remind.homepage.BottomNavBar
 import com.example.remind.homepage.ExpandableCard
 import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
@@ -44,7 +46,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalMaterialApi
 @Composable
-fun TaskScreen(){
+fun TaskScreen(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +55,7 @@ fun TaskScreen(){
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { navController.navigate("addtask") },
                     modifier = Modifier
                         .size(44.dp),
                     backgroundColor = Colors.Primary500,
@@ -64,6 +66,9 @@ fun TaskScreen(){
                         contentDescription = "Add Task"
                     )
                 }
+            },
+            bottomBar = {
+                BottomNavBar(navController)
             }
         ) {
             Column(
@@ -289,10 +294,10 @@ fun TabContent(tabIndex: Int){
     }
 }
 
-@ExperimentalMaterialApi
-@Preview(showSystemUi = true)
-@Composable
-fun TaskPreview(){
-    TaskScreen()
-//    TabLayout()
-}
+//@ExperimentalMaterialApi
+//@Preview(showSystemUi = true)
+//@Composable
+//fun TaskPreview(){
+//    TaskScreen()
+////    TabLayout()
+//}

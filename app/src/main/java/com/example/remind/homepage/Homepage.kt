@@ -1,7 +1,6 @@
 package com.example.remind.homepage
 
 import android.annotation.SuppressLint
-import android.graphics.Paint.Align
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -13,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
@@ -23,17 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.remind.R
 import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
@@ -64,7 +61,7 @@ fun HomepageScreen(navController: NavController){
                             modifier = Modifier
                                 .size(width = 119.dp, height = 24.dp)
                         )
-                        
+
                         IconButton(
                             onClick = { /*TODO*/ }
                         ) {
@@ -79,7 +76,10 @@ fun HomepageScreen(navController: NavController){
                     }
                 }
             },
-            backgroundColor = Color.Transparent
+            
+            bottomBar = {
+                BottomNavBar(navController)
+            }
         ){
             Column(
                 modifier = Modifier
@@ -222,7 +222,7 @@ fun HomepageScreen(navController: NavController){
                                 )
                             }
                         }
-                        
+
                         Spacer(modifier = Modifier.width(13.93.dp))
 
                         Box(
@@ -310,7 +310,7 @@ fun ExpandableCard(
     val rotationState by animateFloatAsState(
         targetValue = if (expandedState) 180f else 0f
     )
-    
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -486,6 +486,115 @@ fun ExpandableCard(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun BottomNavBar(navController: NavController){
+    Box(
+        modifier = Modifier
+            .padding(start = 30.dp, end = 30.dp, bottom = 24.dp)
+            .height(55.dp)
+            .background(
+                color = Colors.Primary500,
+                shape = RoundedCornerShape(10.dp)
+            )
+    ) {
+        BottomNavigation(
+
+            contentColor = Color.White,
+            modifier = Modifier
+                .clip(
+                    RoundedCornerShape(10.dp)
+                )
+        ) {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = navBackStackEntry?.destination?.route
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.home_btn),
+                        contentDescription = "Home",
+                        modifier = Modifier
+                            .size(18.dp)
+                    )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "homepage"){
+                        navController.navigate("homepage") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.task_btn),
+                        contentDescription = "Task",
+                        modifier = Modifier
+                            .size(18.dp)
+                    )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "task"){
+                        navController.navigate("task") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.perform_btn),
+                        contentDescription = "Perform",
+                        modifier = Modifier
+                            .size(18.dp)
+                    )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "homepage"){
+                        navController.navigate("homepage") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.user_btn),
+                        contentDescription = "User",
+                        modifier = Modifier
+                            .size(18.dp)
+                    )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "homepage"){
+                        navController.navigate("homepage") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            )
         }
     }
 }

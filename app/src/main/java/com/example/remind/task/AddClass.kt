@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavController
 import com.example.remind.R
 import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
@@ -40,7 +41,7 @@ import java.util.*
 @RequiresApi(Build.VERSION_CODES.N)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AddTaskScreen(){
+fun AddTaskScreen(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +59,7 @@ fun AddTaskScreen(){
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         IconButton(
                             onClick = { /*TODO*/ }
@@ -68,6 +69,7 @@ fun AddTaskScreen(){
                                 contentDescription = "Back Button",
                                 modifier = Modifier
                                     .size(24.dp)
+                                    .weight(1f)
                             )
                         }
 
@@ -121,7 +123,7 @@ fun AddTaskScreen(){
                                     keyboardType = KeyboardType.Text
                                 ),
                                 textStyle = TextStyle(
-                                    color = Colors.Neutral900,
+                                    color = Colors.Shades300,
                                     fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Normal
@@ -141,7 +143,7 @@ fun AddTaskScreen(){
                                         if (valueTask.isEmpty()){
                                             Text(
                                                 text = "Name of your task",
-                                                color = Colors.Shades300,
+                                                color = Colors.Neutral900,
                                                 fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                                 fontSize = 12.sp,
                                                 fontWeight = FontWeight.Normal
@@ -171,7 +173,7 @@ fun AddTaskScreen(){
                                     keyboardType = KeyboardType.Text
                                 ),
                                 textStyle = TextStyle(
-                                    color = Colors.Neutral900,
+                                    color = Colors.Shades300,
                                     fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Normal
@@ -193,7 +195,7 @@ fun AddTaskScreen(){
                                         if (valueDesc.isEmpty()){
                                             Text(
                                                 text = "Description about your task...",
-                                                color = Colors.Shades300,
+                                                color = Colors.Neutral900,
                                                 fontFamily =  FontFamily(Font(R.font.poppins_regular)),
                                                 fontSize = 12.sp,
                                                 fontWeight = FontWeight.Normal
@@ -315,7 +317,7 @@ fun CustomAlert(
 fun CalendarView(){
     val calendarState = rememberSheetState()
 
-    CalendarDialog(state = calendarState, selection = CalendarSelection.Date {date ->  
+    CalendarDialog(state = calendarState, selection = CalendarSelection.Date {date ->
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.d("SelectedDate", "$date")
         }
@@ -529,9 +531,9 @@ fun CalendarView(){
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
-@Preview(showSystemUi = true)
-@Composable
-fun AddTaskPreview(){
-    AddTaskScreen()
-}
+//@RequiresApi(Build.VERSION_CODES.N)
+//@Preview(showSystemUi = true)
+//@Composable
+//fun AddTaskPreview(){
+//    AddTaskScreen()
+//}
