@@ -267,7 +267,7 @@ fun CustomAlert(
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_success),
-                    contentDescription = "Success"
+                    contentDescription = "Success",
                     modifier = Modifier
                         .size(102.dp)
                 )
