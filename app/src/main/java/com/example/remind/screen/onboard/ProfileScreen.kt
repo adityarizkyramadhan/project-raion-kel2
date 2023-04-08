@@ -120,9 +120,11 @@ fun ProfileScreen(navController: NavController){
                                     .padding(
                                         vertical = 20.dp,
                                         horizontal = 10.dp
-                                    ).clickable {
-
-                                    }
+                                    ).clickable(
+                                        onClick = {
+                                            navController.navigate("updateprofile")
+                                        }
+                                    )
                             ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.change_profile_icon),
