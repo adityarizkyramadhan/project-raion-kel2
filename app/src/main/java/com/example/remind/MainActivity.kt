@@ -50,6 +50,9 @@ class MainActivity : ComponentActivity() {
                 composable(route = "updatepassword"){
                     UpdatePasswordScreen(navController)
                 }
+                composable(route = "notifikasi"){
+                    NotifikasiScreen(navController)
+                }
             }
         }
     }

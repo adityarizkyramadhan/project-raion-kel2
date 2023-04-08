@@ -63,7 +63,9 @@ fun HomepageScreen(navController: NavController){
                         )
 
                         IconButton(
-                            onClick = { /*TODO*/ }
+                            onClick = {
+                                navController.navigate("notifikasi")
+                            }
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_notifikasi),
