@@ -1,6 +1,7 @@
 package com.example.remind.screen.onboard
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -31,6 +33,7 @@ import java.util.*
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun UpdateProfileScreen(navController: NavController) {
+    var context = LocalContext.current
     var showAlert by remember {
         mutableStateOf(false)
     }
@@ -250,12 +253,14 @@ fun UpdateProfileScreen(navController: NavController) {
                             }
                         )
                         if (showAlert){
-                            CustomAlert(
-                                onDismiss = {showAlert = false}
-                            )
+                            if (!emailvalue.isEmpty() && !birthDayvalue.isEmpty() && !namavalue.isEmpty()){
+                                CustomAlert(
+                                    onDismiss = {showAlert = false}
+                                )
+                            }else {
+                                Toast.makeText(context, "Maaf, Anda harus mengisi seluruh form yang disediakan", Toast.LENGTH_LONG).show()
+                            }
                         }
-
-
                     }
                 }
             }
