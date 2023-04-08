@@ -66,7 +66,7 @@ fun AddTaskScreen(navController: NavController){
                         horizontalArrangement = Arrangement.Center
                     ) {
                         IconButton(
-                            onClick = { /*TODO*/ }
+                            onClick = {navController.navigate("homepage")}
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.back_btn),
