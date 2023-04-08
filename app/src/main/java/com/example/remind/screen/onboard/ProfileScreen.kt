@@ -80,7 +80,9 @@ fun ProfileScreen(navController: NavController){
                 ){
                     Box(
                         contentAlignment = Alignment.Center,
-                        modifier = Modifier.offset(y= (-50).dp).fillMaxWidth()
+                        modifier = Modifier
+                            .offset(y = (-50).dp)
+                            .fillMaxWidth()
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ellipse),
@@ -120,7 +122,8 @@ fun ProfileScreen(navController: NavController){
                                     .padding(
                                         vertical = 20.dp,
                                         horizontal = 10.dp
-                                    ).clickable(
+                                    )
+                                    .clickable(
                                         onClick = {
                                             navController.navigate("updateprofile")
                                         }
@@ -157,9 +160,12 @@ fun ProfileScreen(navController: NavController){
                                     .padding(
                                         vertical = 20.dp,
                                         horizontal = 10.dp
-                                    ).clickable {
-
-                                    }
+                                    )
+                                    .clickable(
+                                        onClick = {
+                                            navController.navigate("updatepassword")
+                                        }
+                                    )
                             ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.change_password_icon),
@@ -192,7 +198,8 @@ fun ProfileScreen(navController: NavController){
                                     .padding(
                                         vertical = 20.dp,
                                         horizontal = 10.dp
-                                    ).clickable(
+                                    )
+                                    .clickable(
                                         onClick = {
                                             navController.navigate("onboard")
                                         }

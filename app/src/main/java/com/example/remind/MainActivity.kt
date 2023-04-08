@@ -47,6 +47,9 @@ class MainActivity : ComponentActivity() {
                 composable(route = "updateprofile"){
                     UpdateProfileScreen(navController)
                 }
+                composable(route = "updatepassword"){
+                    UpdatePasswordScreen(navController)
+                }
             }
         }
     }
