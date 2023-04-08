@@ -39,7 +39,7 @@ fun ProfileScreen(navController: NavController){
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         IconButton(
-                            onClick = { /*TODO*/ }
+                            onClick = { navController.navigate("homepage")}
                         ){
                             Icon(
                                 painter = painterResource(id = R.drawable.back_btn),
