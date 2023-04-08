@@ -1,7 +1,6 @@
 package com.example.remind.homepage
 
 import android.annotation.SuppressLint
-import android.graphics.Paint.Align
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -13,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
@@ -23,17 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.rotary.onPreRotaryScrollEvent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.remind.R
 import com.example.remind.ui.theme.Colors
 import com.example.remind.ui.theme.Typography
@@ -64,7 +61,7 @@ fun HomepageScreen(navController: NavController){
                             modifier = Modifier
                                 .size(width = 119.dp, height = 24.dp)
                         )
-                        
+
                         IconButton(
                             onClick = { /*TODO*/ }
                         ) {
@@ -79,7 +76,10 @@ fun HomepageScreen(navController: NavController){
                     }
                 }
             },
-            backgroundColor = Color.Transparent
+            
+            bottomBar = {
+                BottomNavBar(navController)
+            }
         ){
             Column(
                 modifier = Modifier
@@ -222,7 +222,7 @@ fun HomepageScreen(navController: NavController){
                                 )
                             }
                         }
-                        
+
                         Spacer(modifier = Modifier.width(13.93.dp))
 
                         Box(
@@ -272,7 +272,26 @@ fun HomepageScreen(navController: NavController){
                             " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
                             "\n" +
                             " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
-                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya"
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                    status = "Berlangsung"
+                )
+                ExpandableCard(
+                    title = "Brainstorming",
+                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate" +
+                            " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
+                            "\n" +
+                            " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                    status = "Selesai"
+                )
+                ExpandableCard(
+                    title = "Brainstorming",
+                    detail = "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate" +
+                            " libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.\n" +
+                            "\n" +
+                            " conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam",
+                    description = "PM diminta untuk membuat wireframe dari aplikasi yang sudah didesain sebelumnya",
+                    status = "Terlambat"
                 )
             }
         }
@@ -284,13 +303,14 @@ fun HomepageScreen(navController: NavController){
 fun ExpandableCard(
     title : String,
     description : String,
-    detail : String
+    detail : String,
+    status : String
 ){
     var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
         targetValue = if (expandedState) 180f else 0f
     )
-    
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -299,14 +319,13 @@ fun ExpandableCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 20.dp)
                 .animateContentSize(
                     animationSpec = tween(
                         delayMillis = 300,
                         easing = LinearOutSlowInEasing
                     )
                 ),
-            backgroundColor = Colors.Secondary500,
+            backgroundColor = (if (status == "Berlangsung") Colors.Secondary500 else if (status == "Selesai") Colors.Success500 else if(status == "Terlambat") Colors.Error500 else TODO()) as Color,
             shape = RoundedCornerShape(10.dp),
             onClick = {
                 expandedState = !expandedState
@@ -316,7 +335,6 @@ fun ExpandableCard(
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxHeight()
                         .padding(start = 10.dp)
                         .background(color = Colors.Neutral50)
                 ) {
@@ -326,14 +344,40 @@ fun ExpandableCard(
                             .fillMaxWidth(),
                         contentAlignment = Alignment.TopEnd
                     ) {
-                        Text(
-                            text = "Berlangsung",
-                            modifier = Modifier
-                                .background(color = Colors.Secondary500, RoundedCornerShape(20.dp))
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            style = Typography.body10_regular,
-                            color = Colors.Shades300
-                        )
+                        if (status == "Berlangsung"){
+                            Text(
+                                text = status,
+                                modifier = Modifier
+                                    .background(
+                                        color = Colors.Secondary500,
+                                        RoundedCornerShape(20.dp)
+                                    )
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                style = Typography.body10_regular,
+                                color = Colors.Shades300
+                            )
+                        } else if (status == "Selesai"){
+                            Text(
+                                text = status,
+                                modifier = Modifier
+                                    .background(
+                                        color = Colors.Success500,
+                                        RoundedCornerShape(20.dp)
+                                    )
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                style = Typography.body10_regular,
+                                color = Colors.Shades300
+                            )
+                        } else if (status == "Terlambat"){
+                            Text(
+                                text = status,
+                                modifier = Modifier
+                                    .background(color = Colors.Error500, RoundedCornerShape(20.dp))
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                style = Typography.body10_regular,
+                                color = Colors.Shades300
+                            )
+                        }
                     }
 
                     Text(
@@ -352,22 +396,40 @@ fun ExpandableCard(
                                     .padding(start = 20.dp, end = 26.dp)
                             )
 
-                            Box(
+                            Button(
+                                onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(20.dp),
                                 modifier = Modifier
-                                    .padding(top = 14.dp, start = 20.dp)
-                                    .fillMaxWidth()
+                                    .padding(top = 14.dp, start = 20.dp),
+                                colors = (if (status == "Berlangsung") ButtonDefaults.buttonColors(backgroundColor = Colors.Warning300) else if (status == "Selesai" || status == "Terlambat") ButtonDefaults.buttonColors(backgroundColor = Colors.Error500) else TODO()) as ButtonColors
                             ) {
-                                Text(
-                                    text = "Mark as done",
-                                    modifier = Modifier
-                                        .background(
-                                            color = Colors.Warning300,
-                                            RoundedCornerShape(20.dp)
+                                if (status == "Berlangsung"){
+                                    Text(
+                                        text = "Mark as done",
+                                        style = Typography.body10_regular,
+                                        color = Colors.Shades300
+                                    )
+                                } else if (status == "Selesai" || status == "Terlambat"){
+                                    Row(
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_delete),
+                                            contentDescription = "Icon Delete",
+                                            modifier = Modifier
+                                                .padding(start = 26.dp)
+                                                .padding(vertical = 5.dp)
+                                                .size(12.dp)
                                         )
-                                        .padding(horizontal = 16.5.dp, vertical = 5.dp),
-                                    style = Typography.body10_regular,
-                                    color = Colors.Shades300
-                                )
+                                        Text(
+                                            text = "Delete",
+                                            modifier = Modifier
+                                                .padding(start = 5.dp, end = 26.dp)
+                                                .padding(vertical = 5.dp),
+                                            style = Typography.body10_regular,
+                                            color = Colors.Shades300
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
@@ -425,293 +487,114 @@ fun ExpandableCard(
                 }
             }
         }
+    }
+}
 
-        Card(
+@Composable
+fun BottomNavBar(navController: NavController){
+    Box(
+        modifier = Modifier
+            .padding(start = 30.dp, end = 30.dp, bottom = 24.dp)
+            .height(55.dp)
+            .background(
+                color = Colors.Primary500,
+                shape = RoundedCornerShape(10.dp)
+            )
+    ) {
+        BottomNavigation(
+
+            contentColor = Color.White,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
-                .animateContentSize(
-                    animationSpec = tween(
-                        delayMillis = 300,
-                        easing = LinearOutSlowInEasing
-                    )
-                ),
-            backgroundColor = Colors.Success500,
-            shape = RoundedCornerShape(10.dp),
-            onClick = {
-                expandedState = !expandedState
-            }
+                .clip(
+                    RoundedCornerShape(10.dp)
+                )
         ) {
-            Row(
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(start = 10.dp)
-                        .background(color = Colors.Neutral50)
-                ) {
-                    Box(
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = navBackStackEntry?.destination?.route
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.home_btn),
+                        contentDescription = "Home",
                         modifier = Modifier
-                            .padding(top = 25.dp, end = 35.dp)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.TopEnd
-                    ) {
-                        Text(
-                            text = "Selesai",
-                            modifier = Modifier
-                                .background(color = Colors.Success500, RoundedCornerShape(20.dp))
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            style = Typography.body10_regular,
-                            color = Colors.Shades300
-                        )
-                    }
-
-                    Text(
-                        text = title,
-                        style = Typography.body14_semibold,
-                        modifier = Modifier
-                            .padding(start = 20.dp, 10.dp)
+                            .size(18.dp)
                     )
-
-                    if (expandedState){
-                        Column() {
-                            Text(
-                                text = detail,
-                                style = Typography.body12_regular,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 26.dp)
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = 14.dp, start = 20.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .background(
-                                            color = Colors.Error500,
-                                            RoundedCornerShape(20.dp)
-                                        )
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_delete),
-                                        contentDescription = "Icon Delete",
-                                        modifier = Modifier
-                                            .padding(start = 26.dp)
-                                            .padding(vertical = 5.dp)
-                                            .size(12.dp)
-                                    )
-                                    Text(
-                                        text = "Delete",
-                                        modifier = Modifier
-                                            .padding(start = 5.dp, end = 26.dp)
-                                            .padding(vertical = 5.dp),
-                                        style = Typography.body10_regular,
-                                        color = Colors.Shades300
-                                    )
-                                }
-
-                            }
-                        }
-                    }
-                    else {
-                        Text(
-                            text = description,
-                            style = Typography.body12_regular,
-                            modifier = Modifier
-                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp)
-                            .height(44.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .weight(1f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_alarm),
-                                contentDescription = "Icon Alarm",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
-
-                            Text(
-                                text = "22 Maret 2023",
-                                modifier = Modifier
-                                    .padding(start = 8.dp),
-                                style = Typography.body12_regular,
-                                color = Colors.Neutral800
-                            )
-                        }
-
-                        IconButton(
-                            onClick = {expandedState = !expandedState},
-                            modifier = Modifier
-                                .rotate(rotationState)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_dropdown),
-                                contentDescription = "Icon Dropdown",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "homepage"){
+                        navController.navigate("homepage") {
+                            launchSingleTop = true
+                            restoreState = true
                         }
                     }
                 }
-            }
-        }
-
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
-                .animateContentSize(
-                    animationSpec = tween(
-                        delayMillis = 300,
-                        easing = LinearOutSlowInEasing
+            )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.task_btn),
+                        contentDescription = "Task",
+                        modifier = Modifier
+                            .size(18.dp)
                     )
-                ),
-            backgroundColor = Colors.Error500,
-            shape = RoundedCornerShape(10.dp),
-            onClick = {
-                expandedState = !expandedState
-            }
-        ) {
-            Row(
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(start = 10.dp)
-                        .background(color = Colors.Neutral50)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 25.dp, end = 35.dp)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.TopEnd
-                    ) {
-                        Text(
-                            text = "Terlambat",
-                            modifier = Modifier
-                                .background(color = Colors.Error500, RoundedCornerShape(20.dp))
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            style = Typography.body10_regular,
-                            color = Colors.Shades300
-                        )
-                    }
-
-                    Text(
-                        text = title,
-                        style = Typography.body14_semibold,
-                        modifier = Modifier
-                            .padding(start = 20.dp, 10.dp)
-                    )
-
-                    if (expandedState){
-                        Column() {
-                            Text(
-                                text = detail,
-                                style = Typography.body12_regular,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 26.dp)
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = 14.dp, start = 20.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .background(
-                                            color = Colors.Error500,
-                                            RoundedCornerShape(20.dp)
-                                        )
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_delete),
-                                        contentDescription = "Icon Delete",
-                                        modifier = Modifier
-                                            .padding(start = 26.dp)
-                                            .padding(vertical = 5.dp)
-                                            .size(12.dp)
-                                    )
-                                    Text(
-                                        text = "Delete",
-                                        modifier = Modifier
-                                            .padding(start = 5.dp, end = 26.dp)
-                                            .padding(vertical = 5.dp),
-                                        style = Typography.body10_regular,
-                                        color = Colors.Shades300
-                                    )
-                                }
-
-                            }
-                        }
-                    }
-                    else {
-                        Text(
-                            text = description,
-                            style = Typography.body12_regular,
-                            modifier = Modifier
-                                .padding(start = 20.dp, bottom = 10.dp, end = 49.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp)
-                            .height(44.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .weight(1f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_alarm),
-                                contentDescription = "Icon Alarm",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
-
-                            Text(
-                                text = "22 Maret 2023",
-                                modifier = Modifier
-                                    .padding(start = 8.dp),
-                                style = Typography.body12_regular,
-                                color = Colors.Neutral800
-                            )
-                        }
-
-                        IconButton(
-                            onClick = {expandedState = !expandedState},
-                            modifier = Modifier
-                                .rotate(rotationState)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_dropdown),
-                                contentDescription = "Icon Dropdown",
-                                modifier = Modifier
-                                    .size(24.dp)
-                            )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "task"){
+                        navController.navigate("task") {
+                            launchSingleTop = true
+                            restoreState = true
                         }
                     }
                 }
-            }
+            )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.perform_btn),
+                        contentDescription = "Perform",
+                        modifier = Modifier
+                            .size(18.dp)
+                    )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "homepage"){
+                        navController.navigate("homepage") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            )
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.user_btn),
+                        contentDescription = "User",
+                        modifier = Modifier
+                            .size(18.dp)
+                    )
+                },
+                selectedContentColor = Colors.Primary300,
+                unselectedContentColor = Color.White,
+                selected = false,
+                onClick = {
+                    if (currentRoute != "homepage"){
+                        navController.navigate("homepage") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            )
         }
     }
 }
