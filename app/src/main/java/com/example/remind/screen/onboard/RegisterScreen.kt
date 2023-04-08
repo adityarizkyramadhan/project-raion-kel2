@@ -1,6 +1,7 @@
 package com.example.remind.screen.onboard
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -22,6 +23,7 @@ import androidx.compose.runtime.*
 import com.example.remind.ui.theme.Typography
 import com.example.remind.ui.theme.Colors
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -32,10 +34,14 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import kotlin.coroutines.coroutineContext
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RegisterScreen(navController: NavController){
+    var isFormSubmitted by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     Box(modifier = Modifier.background(brush = Brush.verticalGradient(
         colors = listOf(Colors.Primary500, Colors.Neutral0),
         startY = 0.7f,
@@ -285,10 +291,16 @@ fun RegisterScreen(navController: NavController){
                             }
                         )
 
-                        Button(onClick = {
-//                            navController.navigate("login")
-                        },
-                            shape = RoundedCornerShape(13),
+                        Button(
+                            onClick = {
+                                if (!emailvalue.isEmpty() && !unamevalue.isEmpty() && !passwdvalue.isEmpty() && !passwdconfirmvalue.isEmpty()){
+                                    isFormSubmitted == true
+                                    navController.navigate("login")
+                                } else {
+                                    Toast.makeText(context, "Maaf, Anda harus mengisi seluruh form yang disediakan", Toast.LENGTH_LONG).show()
+                                }
+                            },
+                            shape = RoundedCornerShape(13.dp),
                             modifier = Modifier
                                 .padding(top = 24.dp)
                                 .fillMaxWidth()
