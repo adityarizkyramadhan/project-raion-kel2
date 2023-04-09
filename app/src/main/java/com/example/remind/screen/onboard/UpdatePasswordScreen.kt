@@ -262,13 +262,13 @@ fun UpdatePasswordScreen(navController: NavController) {
                             }
                         )
                         if (showAlert){
-                            if (passwdvalue != passwdconfirmvalue){
-                                Toast.makeText(context, "Password baru tidak sama", Toast.LENGTH_LONG).show()
-                            } else if (!passwdvalue.isEmpty() && !passwdconfirmvalue.isEmpty() && !passwdLamavalue.isEmpty()){
+                            if (!passwdvalue.isEmpty() && !passwdconfirmvalue.isEmpty() && !passwdLamavalue.isEmpty()){
+
                                 CustomAlertPassword(
-                                    onDismiss = {showAlert = false},
+                                    onDismiss = { showAlert = false },
                                     navController = navController
                                 )
+
                             }
                         }
                     }
