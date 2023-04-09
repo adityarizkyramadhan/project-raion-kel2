@@ -568,8 +568,8 @@ fun BottomNavBar(navController: NavController){
                 unselectedContentColor = Color.White,
                 selected = false,
                 onClick = {
-                    if (currentRoute != "homepage"){
-                        navController.navigate("homepage") {
+                    if (currentRoute != "performance"){
+                        navController.navigate("performance") {
                             launchSingleTop = true
                             restoreState = true
                         }

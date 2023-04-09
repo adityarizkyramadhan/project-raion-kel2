@@ -10,7 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.remind.homepage.HomepageScreen
+import com.example.remind.performance.PerformanceScreen
+import com.example.remind.screen.onboard.LoginScreen
+import com.example.remind.screen.onboard.OnBoardScreen
+import com.example.remind.screen.onboard.ProfileScreen
+import com.example.remind.screen.onboard.RegisterScreen
 import com.example.remind.screen.onboard.*
+
 import com.example.remind.task.AddTaskScreen
 import com.example.remind.task.TaskScreen
 
@@ -43,6 +49,9 @@ class MainActivity : ComponentActivity() {
                 }
                 composable(route = "profile"){
                     ProfileScreen(navController)
+                }
+                composable(route = "performance"){
+                    PerformanceScreen(navController)
                 }
                 composable(route = "updateprofile"){
                     UpdateProfileScreen(navController)

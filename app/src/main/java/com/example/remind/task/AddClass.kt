@@ -16,8 +16,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ModifierInfo
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -62,7 +66,7 @@ fun AddTaskScreen(navController: NavController){
                         horizontalArrangement = Arrangement.Center
                     ) {
                         IconButton(
-                            onClick = { /*TODO*/ }
+                            onClick = {navController.navigate("homepage")}
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.back_btn),
@@ -262,7 +266,7 @@ fun CustomAlert(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_success),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_success),
                     contentDescription = "Success",
                     modifier = Modifier
                         .size(102.dp)
