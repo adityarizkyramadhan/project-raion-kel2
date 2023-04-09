@@ -12,10 +12,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.remind.R
@@ -62,9 +64,6 @@ fun NotifikasiScreen(navController: NavController){
                 }
             },
             backgroundColor = Color.Transparent,
-            bottomBar = {
-                BottomNavBar(navController)
-            }
         ){
 
             Column(
@@ -73,18 +72,17 @@ fun NotifikasiScreen(navController: NavController){
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                repeat(5) {
+                repeat(25) {
                     Box(
                         modifier = Modifier
                             .background(color = Color(0xFFF6F6F6), shape = RoundedCornerShape(30.dp))
                             .padding(start = 18.dp, end=18.dp, top = 10.dp, bottom = 10.dp)
-                            .size(width = 323.dp, height = 70.dp)
+                            .size(width = 323.dp, height = 60.dp)
                             .fillMaxWidth()
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
                             verticalAlignment = Alignment.CenterVertically,
-
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.notif_icon),
@@ -92,11 +90,14 @@ fun NotifikasiScreen(navController: NavController){
                                 modifier = Modifier.size(31.dp)
                             )
                             Text(
-                                text = "Lorem ipsum",
-                                modifier = Modifier.padding(start = 15.dp, top = 15.dp, end = 15.dp, bottom = 15.dp)
+                                text = "Tugas \"Membuat Wireframe\" harus dikumpulkan minggu ini pada tanggal 22 Maret 2023",
+                                modifier = Modifier.weight(1f).padding(5.dp),
+                                maxLines = Int.MAX_VALUE,
                             )
                         }
                     }
+
+
                 }
             }
 
