@@ -265,12 +265,22 @@ fun CustomAlert(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_success),
-                    contentDescription = "Success",
+                Box(
                     modifier = Modifier
                         .size(102.dp)
-                )
+                        .background(
+                            color = Colors.Success700,
+                            shape = RoundedCornerShape(100.dp)
+                        )
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.centang_button),
+                        contentDescription = "Ceklis",
+                        modifier = Modifier
+                            .size(width = 33.33.dp, height = 22.92.dp)
+                            .align(Alignment.Center)
+                    )
+                }
 
                 Column(
                     modifier = Modifier
