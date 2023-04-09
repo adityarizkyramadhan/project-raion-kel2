@@ -23,6 +23,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import com.example.remind.R
 import com.example.remind.task.CustomAlert
@@ -254,14 +256,96 @@ fun UpdateProfileScreen(navController: NavController) {
                         )
                         if (showAlert){
                             if (!emailvalue.isEmpty() && !birthDayvalue.isEmpty() && !namavalue.isEmpty()){
-                                CustomAlert(
-                                    onDismiss = {showAlert = false}
+                                CustomAlertProfil(
+                                    onDismiss = {showAlert = false},
+                                    navController = navController
                                 )
-                            }else {
-                                Toast.makeText(context, "Maaf, Anda harus mengisi seluruh form yang disediakan", Toast.LENGTH_LONG).show()
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CustomAlertProfil(
+    onDismiss: () -> Unit,
+    navController: NavController,
+    properties: DialogProperties = DialogProperties()
+) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = properties
+    ) {
+        Card(
+            elevation = 0.dp,
+            shape = RoundedCornerShape(10.dp),
+            backgroundColor = Colors.Neutral50
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 20.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(102.dp)
+                        .background(
+                            color = Colors.Success700,
+                            shape = RoundedCornerShape(100.dp)
+                        )
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.centang_button),
+                        contentDescription = "Ceklis",
+                        modifier = Modifier
+                            .size(width = 33.33.dp, height = 22.92.dp)
+                            .align(Alignment.Center)
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .padding(top = 20.dp, start = 39.dp, end = 39.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "BERHASIL!",
+                        style = Typography.h6_bold,
+                        color = Colors.Shades300,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = "Data profilmu telah berhasil dirubah",
+                        style = Typography.body12_regular,
+                        color = Colors.Neutral900,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
+                Button(
+                    onClick = {
+                        navController.navigate("profile")
+                    },
+                    modifier = Modifier
+                        .padding(top = 20.dp, start = 76.dp, end = 76.dp)
+                        .height(34.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Colors.Primary500,
+                            shape = RoundedCornerShape(5.dp)
+                        ),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Colors.Neutral50)
+                ) {
+                    Text(
+                        text = "Kembali ke Halaman Profil",
+                        style = Typography.body12_regular,
+                        color = Colors.Primary500,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
